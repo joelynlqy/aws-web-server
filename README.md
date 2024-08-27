@@ -35,7 +35,9 @@ ansible --version
 
 Run Ansible Playbook
 ```sh
-cd ansible
+sudo yum install -y git
+git clone https://github.com/joelynlqy/aws-web-server.git
+cd aws-web-server/ansible/
 ansible-playbook main.yml -i inventories/staging/hosts/host_vars/host.ini
 ```
 
