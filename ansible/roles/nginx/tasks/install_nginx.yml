@@ -1,0 +1,27 @@
+---
+- name: Install NGINX Open Source
+  ansible.builtin.dnf: 
+    name: nginx
+    state: present
+
+- name: Start NGINX
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Create NGINX configuration file
+  ansible.builtin.template:
+    src: "{{ nginx_conf }}.j2"
+    dest: "{{ nginx_conf_location }}/{{ nginx_conf }}"
+    backup: yes
+  notify: 
+    - Validate NGINX Configuration 
+    - Reload NGINX
+
+
+- name: Create webpage HTML file
+  ansible.builtin.template:
+    src: "{{ index_html }}.j2"
+    dest: "{{ index_html_location }}/{{ index_html }}"
+    backup: yes

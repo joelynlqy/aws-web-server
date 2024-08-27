@@ -1,0 +1,56 @@
+# Configure nginx user
+---
+- name: Create 'nginx' group
+  ansible.builtin.group:
+    name: nginx
+    state: present
+
+- name: Create 'nginx' user
+  ansible.builtin.user:
+    name: nginx
+    group: nginx
+    groups: root
+    state: present
+
+# Configure Security Settings
+- name: Install the audit and firewalld Repository
+  ansible.builtin.dnf:
+    name: 
+      - audit
+      - firewalld
+    state: present
+
+- name: Check if auditd service has started
+  ansible.builtin.service:
+    name: auditd
+    state: started
+    enabled: yes
+
+- name: Check if firewalld service has started
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Enable HTTP on firewall
+  ansible.posix.firewalld:
+    service: "http"
+    state: enabled
+    permanent: yes
+    immediate: yes
+
+- name: Enable SELinux
+  ansible.posix.selinux:
+    policy: targeted
+    state: enforcing
+
+- name: Disable PasswordAuthentication for ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication no
+
+- name: Restart SSHD service 
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

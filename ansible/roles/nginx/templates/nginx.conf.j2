@@ -1,0 +1,28 @@
+user {{ nginx_user }};
+pid {{ nginx_pid }};
+
+events {
+    worker_connections   10;
+
+    use epoll;
+}
+
+http {
+
+    log_format  main '$remote_addr - [$time_local] ($request_time) $status '
+            '"$request" $request_length $body_bytes_sent '
+            '"$http_user_agent" "$http_x_forwarded_for"';
+
+    root {{ nginx_root }};
+
+    server {
+        listen {{ nginx_http_port }};
+
+        location / {
+            index {{ nginx_index_file }};
+        }
+
+        access_log  {{ nginx_access_log }}  main;
+        error_log {{ nginx_error_log }} warn;
+    }
+}
