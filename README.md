@@ -23,7 +23,6 @@ terraform init
 terraform plan
 terraform apply
 ```
-
 After everything has been successfully created, a key_1.pem file will be generated. You can use this key to login to your AWS EC2 Instance.
 
 ### Set-up system configurations and NGINX webserver using Ansible
@@ -61,6 +60,7 @@ terraform {
   }
 }
 ```
+![image](https://github.com/user-attachments/assets/17abe8fa-21d7-47ad-af4c-8fe444e07496)
 
 #### main.tf
 This file declares **all the resources** we want to create.
