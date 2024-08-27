@@ -12,6 +12,7 @@ Prerequisites:
 3. Update terraform/provider.tf with your **AWS Access and Secret Key**.
 4. Update **sg_ingress_cidr** in terraform/variables.tf to whitelist your IP Address, else, remove this variable from terraform/main.tf
 5. Update other variables in terraform/variables.tf if needed.
+
 ![image](https://github.com/user-attachments/assets/7d5f8ae9-2d7c-493c-b428-f0a690119e54)
 ![image](https://github.com/user-attachments/assets/59409a94-96d1-4e5b-adea-56d8f8b27c2b)
 
